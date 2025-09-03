@@ -129,8 +129,6 @@ defmodule TelemetryMetricsAppsignal do
 
   defp prepare_metric_value(metric, measurements, metadata)
 
-  defp prepare_metric_value(%Counter{}, _measurements, _metadata), do: 1
-
   defp prepare_metric_value(%{measurement: convert}, measurements, metadata)
        when is_function(convert, 2) do
     convert.(measurements, metadata)
@@ -146,15 +144,13 @@ defmodule TelemetryMetricsAppsignal do
     measurements[measurement]
   end
 
+  defp prepare_metric_value(%Counter{}, _measurements, _metadata), do: 1
+
   defp prepare_metric_value(_, _, _), do: nil
 
   defp prepare_metric_tags(metric, metadata) do
     tag_values = metric.tag_values.(metadata)
     Map.take(tag_values, metric.tags)
-  end
-
-  defp send_metric(%Counter{} = metric, _value, tags) do
-    call_appsignal(:increment_counter, metric.name, 1, tags)
   end
 
   defp send_metric(%Summary{} = metric, value, tags) do
@@ -175,7 +171,7 @@ defmodule TelemetryMetricsAppsignal do
     )
   end
 
-  defp send_metric(%Sum{} = metric, value, tags) do
+  defp send_metric(metric, value, tags) when is_struct(metric, Counter) or is_struct(metric, Sum) do
     call_appsignal(
       :increment_counter,
       metric.name,

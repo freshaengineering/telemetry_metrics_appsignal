@@ -75,19 +75,18 @@ defmodule TelemetryMetricsAppsignalTest do
 
     ref = make_ref()
 
-    expect(AppsignalMock, :increment_counter, fn
-      "web.request.count", 1, %{} ->
+    expect(AppsignalMock, :increment_counter, fn "web.request.count", 2, %{} ->
         send(parent, {ref, :called})
         :ok
     end)
 
     assert capture_log(fn ->
-             :telemetry.execute([:web, :request], %{}, %{})
+             :telemetry.execute([:web, :request], %{count: 2}, %{})
            end) == ""
 
     assert_receive {^ref, :called}
 
-    # Measurements should be ignored for counter metric
+    # Default to increments of one if measurement not present
     ref = make_ref()
 
     expect(AppsignalMock, :increment_counter, fn "web.request.count", 1, _tags ->
@@ -96,7 +95,7 @@ defmodule TelemetryMetricsAppsignalTest do
     end)
 
     assert capture_log(fn ->
-             :telemetry.execute([:web, :request], %{count: 5}, %{})
+             :telemetry.execute([:web, :request], %{}, %{})
            end) == ""
 
     assert_receive {^ref, :called}
