@@ -1,0 +1,37 @@
+version: 1
+generated_at: 2026-06-01T09:22:09Z
+internal: []
+trusted:
+  - action: actions/cache
+    refs:
+      - v3
+    occurrences:
+      v3:
+        .github/workflows/test.yml:
+          - jobs.test.steps.[2].uses
+          - jobs.test.steps.[4].uses
+          - jobs.dialyze.steps.[2].uses
+          - jobs.dialyze.steps.[4].uses
+          - jobs.dialyze.steps.[5].uses
+  - action: actions/checkout
+    refs:
+      - v3
+    occurrences:
+      v3:
+        .github/workflows/test.yml:
+          - jobs.format.steps.[0].uses
+          - jobs.test.steps.[0].uses
+          - jobs.dialyze.steps.[0].uses
+external:
+  - action: erlef/setup-beam
+    refs:
+      - v1
+    occurrences:
+      v1:
+        .github/workflows/test.yml:
+          - jobs.format.steps.[1].uses
+          - jobs.test.steps.[1].uses
+          - jobs.dialyze.steps.[1].uses
+local: []
+docker: []
+dynamic: []
