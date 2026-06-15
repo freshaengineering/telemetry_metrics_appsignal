@@ -36,7 +36,7 @@ jobs:
         with:
           otp-version: ${{ matrix.otp }}
           elixir-version: ${{ matrix.elixir }}
-      - uses: actions/cache@v3
+      - uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3
         name: Cache dependencies
         with:
           path: |
@@ -46,7 +46,7 @@ jobs:
             deps-${{ hashFiles('mix.lock') }}
             deps-
       - run: mix deps.get
-      - uses: actions/cache@v3
+      - uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3
         name: Cache build
         with:
           path: |
@@ -74,7 +74,7 @@ jobs:
         with:
           otp-version: ${{ matrix.otp }}
           elixir-version: ${{ matrix.elixir }}
-      - uses: actions/cache@v3
+      - uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3
         name: Cache dependencies
         with:
           path: |
@@ -84,7 +84,7 @@ jobs:
             deps-${{ hashFiles('mix.lock') }}
             deps-
       - run: mix deps.get
-      - uses: actions/cache@v3
+      - uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3
         name: Cache build
         with:
           path: |
@@ -93,7 +93,7 @@ jobs:
           restore-keys: |
             build-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
             build-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-
-      - uses: actions/cache@v3
+      - uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3
         name: Restore PLT cache
         id: plt_cache
         with:
