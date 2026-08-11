@@ -14,7 +14,7 @@ permissions:
 jobs:
   format:
     name: Check formatting
-    runs-on: ubuntu-latest
+    runs-on: "runs-on/runner=4cpu-linux-x64/run-id=${{ github.run_id }}"
     env:
       MISE_ELIXIR_VERSION: 1.20.3-otp-28
       MISE_ERLANG_VERSION: "28.5.0.5"
@@ -30,7 +30,7 @@ jobs:
       - run: mix format --check-formatted
   test:
     name: Test on Elixir ${{ matrix.elixir }} (OTP ${{ matrix.otp_major }})
-    runs-on: ubuntu-latest
+    runs-on: "runs-on/runner=4cpu-linux-x64/run-id=${{ github.run_id }}"
     strategy:
       matrix:
         include:
@@ -81,7 +81,7 @@ jobs:
 
   dialyze:
     name: Dialyze on Elixir ${{ matrix.elixir }} (OTP ${{ matrix.otp_major }})
-    runs-on: ubuntu-latest
+    runs-on: "runs-on/runner=4cpu-linux-x64/run-id=${{ github.run_id }}"
     strategy:
       matrix:
         include:
