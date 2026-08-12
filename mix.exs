@@ -5,7 +5,7 @@ defmodule TelemetryMetricsAppsignal.MixProject do
     [
       app: :telemetry_metrics_appsignal,
       version: "1.5.0",
-      elixir: "~> 1.10",
+      elixir: "~> 1.17",
       elixirc_paths: elixirc_paths(Mix.env()),
       source_url: "https://github.com/surgeventures/telemetry_metrics_appsignal",
       start_permanent: Mix.env() == :prod,

@@ -15,9 +15,6 @@ jobs:
   format:
     name: Check formatting
     runs-on: "runs-on/runner=4cpu-linux-x64/run-id=${{ github.run_id }}"
-    env:
-      MISE_ELIXIR_VERSION: 1.20.3-otp-28
-      MISE_ERLANG_VERSION: "28.5.0.5"
     steps:
       - name: Harden the runner
         uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2
@@ -58,7 +55,7 @@ jobs:
 
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
       - uses: step-security/mise-action@2796166110dee826668caddd4bffedae5116e7cd # v4.2.0
-      - uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3
+      - uses: step-security/runs-on-cache@c5b0cba15d05488ebc630ad8d1e95b3d9b35ac73 # v5.0.7
         name: Cache dependencies
         with:
           path: |
@@ -109,7 +106,7 @@ jobs:
 
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
       - uses: step-security/mise-action@2796166110dee826668caddd4bffedae5116e7cd # v4.2.0
-      - uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3
+      - uses: step-security/runs-on-cache@c5b0cba15d05488ebc630ad8d1e95b3d9b35ac73 # v5.0.7
         name: Cache dependencies
         with:
           path: |
