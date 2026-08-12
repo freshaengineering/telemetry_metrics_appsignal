@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- CI now tests Elixir 1.17.3/1.18.4/1.19.5/1.20.3 on OTP 26/27/28 instead of
+  Elixir 1.12.3/1.13.4/1.14.2 on OTP 23/24/25 (the previous matrix ran on
+  `ubuntu-20.04`, which GitHub has retired). `mix.exs` now requires
+  `elixir: "~> 1.17"` to match what CI actually exercises.
+
 ## [1.5.0] - 2024-06-19
 
 ### Added

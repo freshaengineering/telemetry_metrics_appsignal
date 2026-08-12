@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-06-15T13:16:29Z
+generated_at: 2026-08-04T13:30:43Z
 internal: []
 trusted:
   - action: actions/cache
@@ -8,30 +8,40 @@ trusted:
     occurrences:
       6f8efc29b200d32929f49075959781ed54ec270c:
         .github/workflows/test.yml:
-          - jobs.test.steps.[2].uses
-          - jobs.test.steps.[4].uses
-          - jobs.dialyze.steps.[2].uses
-          - jobs.dialyze.steps.[4].uses
+          - jobs.test.steps.[3].uses
+          - jobs.test.steps.[5].uses
+          - jobs.dialyze.steps.[3].uses
           - jobs.dialyze.steps.[5].uses
+          - jobs.dialyze.steps.[6].uses
   - action: actions/checkout
     refs:
       - f43a0e5ff2bd294095638e18286ca9a3d1956744
     occurrences:
       f43a0e5ff2bd294095638e18286ca9a3d1956744:
         .github/workflows/test.yml:
-          - jobs.format.steps.[0].uses
-          - jobs.test.steps.[0].uses
-          - jobs.dialyze.steps.[0].uses
-external:
-  - action: erlef/setup-beam
-    refs:
-      - fc68ffb90438ef2936bbb3251622353b3dcb2f93
-    occurrences:
-      fc68ffb90438ef2936bbb3251622353b3dcb2f93:
-        .github/workflows/test.yml:
           - jobs.format.steps.[1].uses
           - jobs.test.steps.[1].uses
           - jobs.dialyze.steps.[1].uses
+external:
+  - action: step-security/harden-runner
+    refs:
+      - 9af89fc71515a100421586dfdb3dc9c984fbf411
+    occurrences:
+      9af89fc71515a100421586dfdb3dc9c984fbf411:
+        .github/workflows/test.yml:
+          - jobs.format.steps.[0].uses
+          - jobs.test.steps.[0].uses
+          - jobs.dialyze.steps.[0].uses
+  - action: step-security/mise-action
+    refs:
+      - 2796166110dee826668caddd4bffedae5116e7cd
+    occurrences:
+      2796166110dee826668caddd4bffedae5116e7cd:
+        .github/workflows/test.yml:
+          - jobs.format.steps.[2].uses
+          - jobs.test.steps.[2].uses
+          - jobs.dialyze.steps.[2].uses
 local: []
 docker: []
 dynamic: []
+nested_floating_deps: []
