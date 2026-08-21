@@ -27,26 +27,8 @@ jobs:
       - uses: step-security/mise-action@2796166110dee826668caddd4bffedae5116e7cd # v4.2.0
       - run: mix format --check-formatted
   test:
-    name: Test on Elixir ${{ matrix.elixir }} (OTP ${{ matrix.otp_major }})
+    name: Test
     runs-on: "runs-on/runner=4cpu-linux-x64/run-id=${{ github.run_id }}"
-    strategy:
-      matrix:
-        include:
-          - elixir: "1.17.3"
-            otp_major: "26"
-            otp: "26.2.5.21"
-          - elixir: "1.18.4"
-            otp_major: "27"
-            otp: "27.3.4.16"
-          - elixir: "1.19.5"
-            otp_major: "27"
-            otp: "27.3.4.16"
-          - elixir: "1.20.3"
-            otp_major: "28"
-            otp: "28.5.0.5"
-    env:
-      MISE_ELIXIR_VERSION: ${{ matrix.elixir }}-otp-${{ matrix.otp_major }}
-      MISE_ERLANG_VERSION: ${{ matrix.otp }}
     steps:
       - name: Harden the runner
         uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2
@@ -71,33 +53,15 @@ jobs:
         with:
           path: |
             _build
-          key: build-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
+          key: build-${{ runner.os }}-${{ hashFiles('mix.lock') }}
           restore-keys: |
-            build-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
-            build-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-
+            build-${{ runner.os }}-${{ hashFiles('mix.lock') }}
+            build-${{ runner.os }}-
       - run: mix test
 
   dialyze:
-    name: Dialyze on Elixir ${{ matrix.elixir }} (OTP ${{ matrix.otp_major }})
+    name: Dialyze
     runs-on: "runs-on/runner=4cpu-linux-x64/run-id=${{ github.run_id }}"
-    strategy:
-      matrix:
-        include:
-          - elixir: "1.17.3"
-            otp_major: "26"
-            otp: "26.2.5.21"
-          - elixir: "1.18.4"
-            otp_major: "27"
-            otp: "27.3.4.16"
-          - elixir: "1.19.5"
-            otp_major: "27"
-            otp: "27.3.4.16"
-          - elixir: "1.20.3"
-            otp_major: "28"
-            otp: "28.5.0.5"
-    env:
-      MISE_ELIXIR_VERSION: ${{ matrix.elixir }}-otp-${{ matrix.otp_major }}
-      MISE_ERLANG_VERSION: ${{ matrix.otp }}
     steps:
       - name: Harden the runner
         uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2
@@ -122,19 +86,19 @@ jobs:
         with:
           path: |
             _build
-          key: build-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
+          key: build-${{ runner.os }}-${{ hashFiles('mix.lock') }}
           restore-keys: |
-            build-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
-            build-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-
+            build-${{ runner.os }}-${{ hashFiles('mix.lock') }}
+            build-${{ runner.os }}-
       - uses: step-security/runs-on-cache@c5b0cba15d05488ebc630ad8d1e95b3d9b35ac73 # v5.0.7
         name: Restore PLT cache
         id: plt_cache
         with:
           path: |
             priv/plts
-          key: plt-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}
+          key: plt-${{ runner.os }}
           restore-keys: |
-            plt-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}
+            plt-${{ runner.os }}
       - name: Create PLTs
         if: steps.plt_cache.outputs.cache-hit != 'true'
         run: mix dialyzer --plt
